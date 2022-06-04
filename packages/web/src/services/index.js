@@ -1,6 +1,18 @@
+
+const dataCache = new Map()
+
 const getBackData = async () => {
-  const getData = (url) => fetch(url)
-    .then(res => res.json())
+  const getData = async (url) => {
+    let data = dataCache.get(url)
+
+    if (!data) {
+      // 没有数据请求服务器
+      data = await fetch(url).then(res => res.json())
+      // 设置数据缓存
+      dataCache.set(url, data)
+    }
+    return data
+  }
 
 
   const data1 = await getData("/data")
