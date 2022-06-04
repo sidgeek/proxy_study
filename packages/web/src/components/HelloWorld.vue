@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <button @click="handleClick">click</button>
     <button @click="count++">count is: {{ count }}</button>
   </div>
 </template>
@@ -16,6 +17,11 @@ export default {
       count: 0,
     };
   },
+  methods: {
+    handleClick() {
+      console.log(">>>")      
+    }
+  }
 };
 </script>
 
