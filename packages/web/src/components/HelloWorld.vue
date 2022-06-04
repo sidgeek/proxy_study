@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import getData from '../services'
+
 export default {
   name: "HelloWorld",
   props: {
@@ -19,7 +21,7 @@ export default {
   },
   methods: {
     handleClick() {
-      console.log(">>>")      
+      getData()
     }
   }
 };
