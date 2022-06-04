@@ -13,12 +13,14 @@ const getBackData = async () => {
     }
     return data
   }
+  
+  const data1 = getData("/data")
+  const data2 = getData("/data")
 
-
-  const data1 = await getData("/data")
-  console.log(data1)
-  const data2 = await getData("/book")
-  console.log(data2)
+  const res = await Promise.all([data1, data2])
+  console.log(res)
+  // const data2 = await getData("/book")
+  // console.log(data2)
 }
 
 
