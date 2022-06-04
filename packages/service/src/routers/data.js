@@ -4,7 +4,7 @@ const router = new Router()
 
 router.get('/data', (ctx, next) => {
   ctx.body = {
-    data: { key: 'data' },
+    key: 'data'
   }
 })
 

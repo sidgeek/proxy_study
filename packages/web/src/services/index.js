@@ -1,7 +1,14 @@
-const getData = () => {
-  fetch("/data").then(res => {
-    console.log(">>> getData:", res);
-  })
+
+const getBackData = async () => {
+  const getData = (url) => fetch(url)
+    .then(res => res.json())
+    .then(console.log)
+
+
+  await getData("/data")
+  await getData("/book")
 }
 
-export default getData
+
+
+export default getBackData
