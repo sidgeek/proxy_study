@@ -1,17 +1,17 @@
 
-const dataCache = new Map()
+const promiseCache = new Map()
 
 const getBackData = async () => {
   const getData = async (url) => {
-    let data = dataCache.get(url)
+    let promise = promiseCache.get(url)
 
-    if (!data) {
-      // 没有数据请求服务器
-      data = await fetch(url).then(res => res.json())
+    if (!promise) {
+      // 没有数据请求服务器, 没有await 返回的是promise
+      promise = fetch(url).then(res => res.json())
       // 设置数据缓存
-      dataCache.set(url, data)
+      promiseCache.set(url, promise)
     }
-    return data
+    return promise
   }
   
   const data1 = getData("/data")
