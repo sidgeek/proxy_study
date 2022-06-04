@@ -1,5 +1,21 @@
+import ExpiredCache from "./ExpiredCache"
 
-const promiseCache = new Map()
+// // 生成key值错误
+// const generateKeyError = new Error("Can't generate key from name and argument")
+
+// // 生成key值
+// function generateKey(name, argument) {
+//   // 从arguments 中取得数据然后变为数组
+//   const params = Array.from(argument).join(',')
+
+//   try {
+//     // 返回 字符串，函数名 + 函数参数
+//     return `${name}:${params}`
+//   } catch (_) {
+//     // 返回生成key错误
+//     return generateKeyError
+//   }
+// }
 
 const getApiData = (url) => {
   if (url === "/data") return Promise.reject(`get ${url} failed`)
@@ -17,7 +33,9 @@ const getBackData = async () => {
 
     urls.forEach(url => {
       // 利用promise 
-      let promise = promiseCache.get(url)
+      // console.log('>>> get before', ExpiredCache.cacheMap);
+      let promise = ExpiredCache.get(url)
+      console.log('>>> promise', url, promise);
 
       if (promise) {
         // 如果 缓存中有，直接push
@@ -25,10 +43,12 @@ const getBackData = async () => {
       } else {
         promise = getApiData(url).catch(error => {
           // 在请求回来后，如果出现问题，把promise从cache中删除
-          promiseCache.delete(url)
+          ExpiredCache.delete(url)
           return Promise.reject(error)
         })
-        promiseCache.set(url, promise)
+        // console.log('>>> set', url);
+        ExpiredCache.set(url, promise)
+        // console.log('>>> set after',  ExpiredCache.cacheMap);
         promises.push(promise)
       }
     })
@@ -41,8 +61,8 @@ const getBackData = async () => {
   }
 
   const data1 = getData("/book")
-   // 第二次调用 不会去取 book，只会去data
-  const data2 = getData(["/data","/book"]) 
+  // 第二次调用 不会去取 book，只会去data
+  const data2 = getData(["/data", "/book"])
 
   data1.then(console.log)
   data2.then(console.log)
