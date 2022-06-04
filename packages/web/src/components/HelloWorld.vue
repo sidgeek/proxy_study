@@ -1,15 +1,22 @@
 <template>
   <div class="hello">
+    <h1>{{ msg }}</h1>
+    <button @click="count++">count is: {{ count }}</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
-    msg: String
-  }
-}
+    msg: String,
+  },
+  data() {
+    return {
+      count: 0,
+    };
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
